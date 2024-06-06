@@ -5,6 +5,10 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email_validator import validate_email, EmailNotValidError
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -16,10 +20,9 @@ class EmailSchema(BaseModel):
     body: str
 
 
-# Email sending function
 def send_email(email: EmailStr, subject: str, body: str, username, reset_link):
     sender_email = "atifahmad2219@gmail.com"
-    sender_password = "******"
+    sender_password = os.environ["EMAIL_SERVER_PASSSWORD"]
     receiver_email = email
     subject = "Password Reset Request"
     html_content = f"""
